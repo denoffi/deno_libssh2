@@ -51,9 +51,19 @@ jobs:
 
           deno test --allow-ffi --unstable
 
-      # - name: Run deno test
-      #   if: matrix.os == 'windows-latest'
-      #   run: |
-      #     choco install openssh
-      #     refreshenv
-      #     deno test --allow-ffi --unstable
+      - name: Run deno test
+        if: matrix.os == 'windows-latest'
+        run: |
+          # https://jpassing.com/2021/02/29/2021-03-29-building-libssh2-on-windows-lessons-learnt/
+          git clone https://github.com/libssh2/libssh2.git
+          cd libssh2
+          git checkout libssh2-1.10.0
+
+          mkdir dll
+          cmake -DCRYPTO_BACKEND=WinCNG -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=./dll --build .
+          cmake --build . --target install
+
+          dir dll
+          set PATH=$PATH;dll
+          deno test --allow-ffi --unstable
+
