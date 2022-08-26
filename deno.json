@@ -1,0 +1,13 @@
+{
+  "tasks": {
+    "build": "deno run --allow-read --allow-write --allow-run build.ts"
+  },
+  "fmt": {
+    "options": {
+      "lineWidth": 120
+    },
+    "files": {
+      "exclude": ["input/"]
+    }
+  }
+}
