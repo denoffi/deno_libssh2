@@ -61,10 +61,8 @@ jobs:
 
           mkdir dll
           cd dll
-          cmake -DCMAKE_INSTALL_PREFIX:PATH=./dll .. && cmake --build . --target install --config Release
-
-          cmake -DCRYPTO_BACKEND=WinCNG -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=./dll --build .
-          cmake --build . --target install
+          cmake -DCRYPTO_BACKEND=WinCNG -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX:PATH=./dll ..
+          cmake --build . --target install --config Release
 
           dir .
           $Env:PATH += "./libssh2/dll"
