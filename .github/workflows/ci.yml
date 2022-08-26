@@ -33,7 +33,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt update -y
-          sudo apt install libssh2-1 -y
+          sudo apt install libssh2-1-dev -y
           deno test --allow-ffi --unstable
 
       - name: Run deno test
