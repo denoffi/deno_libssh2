@@ -1,6 +1,5 @@
 import { assert } from "./deps.ts";
 import { init } from "./util.ts";
-import * as semver from "https://deno.land/std@0.153.0/semver/mod.ts";
 
 Deno.test("libssh2_version is not null", function () {
   const lib = init();
@@ -10,12 +9,10 @@ Deno.test("libssh2_version is not null", function () {
   lib.$$close();
 });
 
-Deno.test("libssh2_version is a valid semver", function () {
+Deno.test("libssh2_version is a valid string", function () {
   const lib = init();
   const version = lib.libssh2_version(0);
 
-  console.log("###", Deno.UnsafePointerView.getCString(version));
-
-  assert(semver.valid(Deno.UnsafePointerView.getCString(version)));
+  assert(typeof Deno.UnsafePointerView.getCString(version) === "string");
   lib.$$close();
 });
