@@ -34,8 +34,8 @@ jobs:
         run: |
           # https://github.com/denoland/deno/blob/1848c7e361f1a3a33487b60ab6fcb61ed1f62273/.github/workflows/ci.yml#L155
           sudo apt remove --purge -y man-db
-          sudo apt update -y
-          sudo apt install libssh2-1-dev -y
+          sudo apt update
+          sudo apt install  --no-install-recommends libssh2-1-dev
           deno test --allow-ffi --unstable
 
       - name: Run deno test
