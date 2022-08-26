@@ -39,6 +39,7 @@ jobs:
           pushd /tmp
           git clone https://github.com/libssh2/libssh2.git libssh2
           cd libssh2
+          git checkout libssh2-1.10.0
           autoreconf -vfi
           ./configure 
           make
