@@ -46,6 +46,8 @@ jobs:
           sudo make install
           popd
 
+          ls /usr/local/lib
+
           deno test --allow-ffi --unstable
 
       # - name: Run deno test
