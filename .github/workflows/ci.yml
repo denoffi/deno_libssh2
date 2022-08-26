@@ -64,7 +64,7 @@ jobs:
           cmake -DCRYPTO_BACKEND=WinCNG -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX:PATH=./dll ..
           cmake --build . --target install --config Release
 
-          dir .
+          dir dll
           $Env:PATH += "./libssh2/dll"
           popd
           deno test --allow-ffi --unstable
