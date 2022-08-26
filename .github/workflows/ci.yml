@@ -47,7 +47,6 @@ jobs:
           sudo make install
           popd
 
-          ls /usr/local/lib
           export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
           deno test --allow-ffi --unstable
