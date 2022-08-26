@@ -64,6 +64,6 @@ jobs:
           cmake --build . --target install
 
           dir dll
-          set PATH=$PATH;dll
+          set PATH=$PATH;./dll
           deno test --allow-ffi --unstable
 
