@@ -35,11 +35,36 @@ jobs:
           # https://github.com/denoland/deno/blob/1848c7e361f1a3a33487b60ab6fcb61ed1f62273/.github/workflows/ci.yml#L155
           sudo apt remove --purge -y man-db
           sudo apt update
-          sudo apt install  --no-install-recommends libssh2-1-dev
+          sudo apt install build-essential git autoconf libtool libssl-dev -y
+          pushd /tmp
+          git clone https://github.com/libssh2/libssh2.git libssh2
+          cd libssh2
+          git checkout libssh2-1.10.0
+          autoreconf -vfi
+          ./configure 
+          make
+          make check
+          sudo make install
+          popd
+
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+
           deno test --allow-ffi --unstable
 
       - name: Run deno test
         if: matrix.os == 'windows-latest'
         run: |
-          choco install openssh
+          # https://jpassing.com/2021/02/29/2021-03-29-building-libssh2-on-windows-lessons-learnt/
+          git clone https://github.com/libssh2/libssh2.git
+          pushd libssh2
+          git checkout libssh2-1.10.0
+
+          mkdir dll
+          cmake -DCRYPTO_BACKEND=WinCNG -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX:PATH=./dll .
+          cmake --build . --target install --config Release
+
+          dir ./dll/bin
+          $Env:PATH += "./libssh2/dll/bin"
+          popd
           deno test --allow-ffi --unstable
+
