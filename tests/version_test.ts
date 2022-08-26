@@ -13,6 +13,9 @@ Deno.test("libssh2_version is not null", function () {
 Deno.test("libssh2_version is a valid semver", function () {
   const lib = init();
   const version = lib.libssh2_version(0);
+
+  console.log("###", Deno.UnsafePointerView.getCString(version))
+
   assert(semver.valid(Deno.UnsafePointerView.getCString(version)));
   lib.$$close();
 });
