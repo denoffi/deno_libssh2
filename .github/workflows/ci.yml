@@ -35,7 +35,17 @@ jobs:
           # https://github.com/denoland/deno/blob/1848c7e361f1a3a33487b60ab6fcb61ed1f62273/.github/workflows/ci.yml#L155
           sudo apt remove --purge -y man-db
           sudo apt update
-          sudo apt install  --no-install-recommends libssh2-1-dev
+          sudo apt install build-essential git autoconf libtool libssl-dev -y
+          pushd /tmp
+          git clone https://github.com/libssh2/libssh2.git libssh2
+          cd libssh2
+          autoreconf -vfi
+          ./configure 
+          make
+          make check
+          sudo make install
+          popd
+
           deno test --allow-ffi --unstable
 
       - name: Run deno test
