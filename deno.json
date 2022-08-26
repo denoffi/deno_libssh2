@@ -1,6 +1,7 @@
 {
   "tasks": {
-    "build": "deno run --allow-read --allow-write --allow-run build.ts"
+    "build": "deno run --allow-read --allow-write --allow-run build.ts && deno fmt",
+    "test": "deno test --unstable --allow-ffi"
   },
   "fmt": {
     "options": {
