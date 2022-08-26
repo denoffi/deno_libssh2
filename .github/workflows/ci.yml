@@ -52,4 +52,5 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           choco install openssh
+          refreshenv
           deno test --allow-ffi --unstable
